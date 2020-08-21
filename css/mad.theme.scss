@@ -1,0 +1,9 @@
+$header-color: #222;
+$canvas-clear-color: #111115;
+.header {
+    background-color: $header-color;
+}
+
+.game-rendering-canvas {
+    background: $canvas-clear-color;
+}

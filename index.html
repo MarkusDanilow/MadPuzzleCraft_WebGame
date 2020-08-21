@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAD Puzzle Craft</title>
+
+    <!-- import scripts -->
+
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/jquery/jquery-ui.min.js"></script>
+    <script src="lib/popper/popper.js"></script>
+    <script src="lib/bootstrap/bootstrap.min.js"></script>
+    <script src="lib/htmlgenerator/HtmlGenerator.js"></script>
+
+    <script src="js/TransformationUtil.js"></script>
+    <script src="js/TetxtureLoader.js"></script>
+    <script src="js/MadApplication.js"></script>
+    <script src="js/MadRenderer.js"></script>
+    <script src="js/MadInput.js"></script>
+    <script src="js/TileDefinitions.js"></script>
+    <script src="js/Tile.js"></script>
+    <script src="js/GameMap.js"></script>
+
+    <!-- import styles -->
+
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/normalize.css">
+    <link rel="stylesheet" href="lib/pure.min.css">
+    <link rel="stylesheet" href="lib/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="css/mad.layout.css">
+    <link rel="stylesheet" href="css/mad.theme.css">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 header">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <canvas class="game-rendering-canvas w-100 h-100" id="game-rendering-canvas"></canvas>
+        </div>
+
+    </div>
+
+    <script>
+        var application = new MadApplication();
+        application.start();
+    </script>
+
+</body>
+
+</html>
