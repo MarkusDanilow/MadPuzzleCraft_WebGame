@@ -2,13 +2,36 @@ function MadInput() {
 
     this.hoveredTileCoords = { x: -1, y: -1 };
 
+    this.dragginMouseButton = 3;
+    this.draggingEnabled = false;
+
     let scope = this;
 
     this.initBasicEvents = function() {
-        let scope = this;
+
+        application.getRenderer().canvasReference.on('contextmenu', function(e) {
+            return false;
+        })
+
+
         application.getRenderer().canvasReference.mousemove(function(e) {
-            var tilePosition = TransformationUtil.toWorldCoordinates(e.pageX, e.pageY);
-            scope.hoveredTileCoords = tilePosition;
+            // include draggin mode in here as well!
+            if (scope.draggingEnabled) {
+                console.log(scope.draggingEnabled);
+            } else {
+                var tilePosition = TransformationUtil.toWorldCoordinates(e.pageX, e.pageY);
+                scope.hoveredTileCoords = tilePosition;
+            }
+        });
+
+        application.getRenderer().canvasReference.mousedown(function(e) {
+            if (e.which == scope.dragginMouseButton)
+                scope.draggingEnabled = true;
+        });
+
+
+        application.getRenderer().canvasReference.mouseup(function(e) {
+            scope.draggingEnabled = false;
         });
 
         $(document).mouseout(function(e) {
