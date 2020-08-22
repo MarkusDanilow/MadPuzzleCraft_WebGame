@@ -3,13 +3,15 @@ function GameMap() {
     this.noiseMap = [];
     this.tiles = [];
 
+    this.seed = 0.0824929392;
+
     /**
      * 
      */
     this.initMap = function() {
 
         // init noise map
-        noise.seed(Math.random());
+        noise.seed(this.seed);
         for (var x = 0; x < GameMap.WIDTH; x++) {
             var colBuffer = [];
             for (var y = 0; y < GameMap.HEIGHT; y++) {
