@@ -18,7 +18,7 @@ function MadRenderer() {
     this.init = function() {
         scope.canvasReference = $('#game-rendering-canvas');
         scope.renderingContext = scope.canvasReference[0].getContext('2d');
-        scope.initCanvasSize()
+        scope.initCanvasSize();
     }
 
     /**
@@ -29,6 +29,7 @@ function MadRenderer() {
         scope.canvasHeight = scope.canvasReference.height();
         scope.canvasReference[0].width = scope.canvasWidth;
         scope.canvasReference[0].height = scope.canvasHeight;
+        TransformationUtil.initViewRatioAndDistance();
     }
 
     /**
