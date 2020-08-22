@@ -94,6 +94,3 @@ function MadRenderer() {
     }
 
 }
-
-MadRenderer.MinPosition = { x: 0, y: 0 }
-MadRenderer.MaxPosition = { x: 0, y: 0 }
