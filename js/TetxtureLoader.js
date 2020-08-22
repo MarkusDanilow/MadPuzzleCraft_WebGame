@@ -20,5 +20,6 @@ function TextureAtlas() {
 
 TextureAtlas.TileSize = 64;
 TextureAtlas.TileLocations = {
-    grass: { x: 0, y: 0 }
+    grass: { x: 0, y: 0 },
+    water: { x: 1, y: 0 }
 }

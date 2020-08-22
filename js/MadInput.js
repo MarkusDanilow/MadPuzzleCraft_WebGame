@@ -14,8 +14,7 @@ function MadInput() {
 
         application.getRenderer().canvasReference.on('contextmenu', function(e) {
             return false;
-        })
-
+        });
 
         application.getRenderer().canvasReference.mousemove(function(e) {
             // include draggin mode in here as well!

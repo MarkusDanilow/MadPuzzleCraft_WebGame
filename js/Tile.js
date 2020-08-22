@@ -16,6 +16,21 @@ function Tile(x, y) {
 
     /**
      * 
+     * @param {*} value 
+     */
+    this.tileTypeFromNoiseValue = function(value) {
+        if (value < -1) value = -1;
+        if (value > 1) value = 1;
+
+        if (value <= 0)
+            this.type = TileType.WATER;
+        else
+            this.type = TileType.GRASS;
+
+    }
+
+    /**
+     * 
      * @param {*} worldX 
      * @param {*} worldY 
      */
@@ -26,15 +41,3 @@ function Tile(x, y) {
 }
 
 Tile.SIZE = 64;
-Tile.MATERIALS = {};
-
-Tile.loadMaterials = function() {
-    for (var prop in TileColors) {
-        if (Object.prototype.hasOwnProperty.call(TileColors, prop)) {
-            /*
-            var material = new THREE.MeshBasicMaterial({ color: TileColors[prop] });
-            Tile.MATERIALS[TileType[prop]] = material;
-            */
-        }
-    }
-};

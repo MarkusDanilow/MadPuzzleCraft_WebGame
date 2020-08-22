@@ -1,7 +1,9 @@
 const TileType = {
-    GRASS: 'grass'
+    GRASS: 'grass',
+    WATER: 'water'
 };
 
 const TileColors = {
-    grass: 'green'
+    grass: 'green',
+    water: 'blue'
 };
