@@ -5,6 +5,9 @@ function MadInput() {
     this.dragginMouseButton = 3;
     this.draggingEnabled = false;
 
+    this.lastDragingPosition = { x: 0, y: 0 };
+    this.newDraggingPosition = { x: 0, y: 0 };
+
     let scope = this;
 
     this.initBasicEvents = function() {
@@ -16,17 +19,25 @@ function MadInput() {
 
         application.getRenderer().canvasReference.mousemove(function(e) {
             // include draggin mode in here as well!
+            let mousePos = { x: e.pageX, y: e.pageY };
             if (scope.draggingEnabled) {
-                console.log(scope.draggingEnabled);
-            } else {
-                var tilePosition = TransformationUtil.toWorldCoordinates(e.pageX, e.pageY);
-                scope.hoveredTileCoords = tilePosition;
+                scope.lastDragingPosition = scope.newDraggingPosition;
+                scope.newDraggingPosition = mousePos;
+                let delta = {
+                    x: scope.newDraggingPosition.x - scope.lastDragingPosition.x,
+                    y: scope.newDraggingPosition.y - scope.lastDragingPosition.y
+                };
+                TransformationUtil.modifyRenderingOffset(delta);
             }
+            var tilePosition = TransformationUtil.toWorldCoordinates(mousePos.x, mousePos.y);
+            scope.hoveredTileCoords = tilePosition;
         });
 
         application.getRenderer().canvasReference.mousedown(function(e) {
-            if (e.which == scope.dragginMouseButton)
+            if (e.which == scope.dragginMouseButton) {
                 scope.draggingEnabled = true;
+                scope.newDraggingPosition = { x: e.pageX, y: e.pageY };
+            }
         });
 
 

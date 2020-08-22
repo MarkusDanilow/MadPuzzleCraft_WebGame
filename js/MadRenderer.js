@@ -63,14 +63,15 @@ function MadRenderer() {
         for (let x = 0; x < tiles.length; x++) {
             for (let y = 0; y < tiles[x].length; y++) {
                 let type = tiles[x][y].type;
-                /*
-                scope.renderingContext.fillStyle = color;
-                scope.renderingContext.fillRect(x * Tile.SIZE, y * Tile.SIZE, Tile.SIZE, Tile.SIZE);
-                */
+
+                let origWorldPos = { x: x * Tile.SIZE, y: y * Tile.SIZE };
+                //if (TransformationUtil.isInViewport(origWorldPos)) {
+                let renderingPos = TransformationUtil.worldToScreenPosition(origWorldPos);
                 scope.renderingContext.drawImage(TextureLoader.TileMap,
                     TextureAtlas.TileSize * TextureAtlas.TileLocations[type].x, TextureAtlas.TileSize * TextureAtlas.TileLocations[type].y,
                     TextureAtlas.TileSize, TextureAtlas.TileSize,
-                    x * Tile.SIZE, y * Tile.SIZE, Tile.SIZE, Tile.SIZE);
+                    renderingPos.x, renderingPos.y, Tile.SIZE, Tile.SIZE);
+                //}
             }
         }
 
