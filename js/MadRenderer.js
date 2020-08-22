@@ -30,6 +30,7 @@ function MadRenderer() {
         scope.canvasReference[0].width = scope.canvasWidth;
         scope.canvasReference[0].height = scope.canvasHeight;
         TransformationUtil.initViewRatioAndDistance();
+        TransformationUtil.applyZoomChange(0);
     }
 
     /**

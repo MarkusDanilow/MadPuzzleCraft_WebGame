@@ -12,6 +12,7 @@ TransformationUtil.initViewRatioAndDistance = function() {
     let idealSizeX = rw / GameMap.VIEW_DISTANCE_X;
     let idealSizeY = rh / GameMap.VIEW_DISTANCE_Y;
     Tile.SIZE = Math.floor((idealSizeX + idealSizeY) / 2);
+    Tile.ORIGINAL_SIZE = Tile.SIZE;
 }
 
 /**
@@ -30,6 +31,10 @@ TransformationUtil.modifyRenderingOffset = function(delta) {
     //  if (!delta || !delta.x || !delta.y) return;
     TransformationUtil.RenderingOffset.x += delta.x;
     TransformationUtil.RenderingOffset.y += delta.y;
+    TransformationUtil.checkRenderingOffset();
+}
+
+TransformationUtil.checkRenderingOffset = function() {
 
     // bounding left and top 
     if (TransformationUtil.RenderingOffset.x >= 0) TransformationUtil.RenderingOffset.x = 0;
@@ -41,7 +46,31 @@ TransformationUtil.modifyRenderingOffset = function(delta) {
         TransformationUtil.RenderingOffset.x = -(GameMap.WIDTH * Tile.SIZE - renderer.canvasWidth);
     if (TransformationUtil.RenderingOffset.y <= -(GameMap.HEIGHT * Tile.SIZE - renderer.canvasHeight + renderer.canvasReference.offset().top))
         TransformationUtil.RenderingOffset.y = -(GameMap.HEIGHT * Tile.SIZE - renderer.canvasHeight + renderer.canvasReference.offset().top);
+}
 
+/**
+ * 
+ */
+TransformationUtil.zoomLevel = 0;
+
+/**
+ * 
+ * @param {*} zoomDelta 
+ */
+TransformationUtil.applyZoomChange = function(zoomDelta, mousePos) {
+    // TransformationUtil.zoomLevel += Math.floor(zoomDelta / 100);
+    if (zoomDelta < 0) TransformationUtil.zoomLevel--;
+    else if (zoomDelta > 0) TransformationUtil.zoomLevel++;
+    if (TransformationUtil.zoomLevel < 0) TransformationUtil.zoomLevel = 0;
+    else if (TransformationUtil.zoomLevel > 3) TransformationUtil.zoomLevel = 3;
+    let scalingFactor = (Math.pow(2, TransformationUtil.zoomLevel));
+    Tile.SIZE = Tile.ORIGINAL_SIZE * scalingFactor;
+
+    // transform so that we always zoom in on the mouse position
+    console.log(mousePos);
+
+    // make sure that we do not go outside the bounds of the map!
+    TransformationUtil.checkRenderingOffset();
 }
 
 /**

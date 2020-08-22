@@ -12,10 +12,12 @@ function MadInput() {
 
     this.initBasicEvents = function() {
 
+        // disable context menu on canvas
         application.getRenderer().canvasReference.on('contextmenu', function(e) {
             return false;
         });
 
+        // mouse move for highlighting current tile and dragging feature
         application.getRenderer().canvasReference.mousemove(function(e) {
             // include draggin mode in here as well!
             let mousePos = { x: e.pageX, y: e.pageY };
@@ -32,6 +34,7 @@ function MadInput() {
             scope.hoveredTileCoords = tilePosition;
         });
 
+        // detect when a mouse button has been pressed
         application.getRenderer().canvasReference.mousedown(function(e) {
             if (e.which == scope.dragginMouseButton) {
                 scope.draggingEnabled = true;
@@ -39,15 +42,24 @@ function MadInput() {
             }
         });
 
-
+        // detect when a mouse button has been released 
         application.getRenderer().canvasReference.mouseup(function(e) {
             scope.draggingEnabled = false;
         });
 
+        // detect mouse wheel events for zooming in and out 
+        application.getRenderer().canvasReference.on("wheel", function(e) {
+            let delta = e.originalEvent.wheelDelta;
+            let mousePos = { x: e.pageX, y: e.pageY };
+            TransformationUtil.applyZoomChange(delta, mousePos);
+        });
+
+        // when the mouse leaves the game window
         $(document).mouseout(function(e) {
             scope.hoveredTileCoords = { x: -1, y: -1 };
         });
 
+        // resize game when window is being resized
         $(window).resize(function() {
             application.getRenderer().initCanvasSize();
         });

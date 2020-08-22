@@ -40,4 +40,5 @@ function Tile(x, y) {
 
 }
 
-Tile.SIZE = 64;
+Tile.ORIGINAL_SIZE = 32;
+Tile.SIZE = Tile.ORIGINAL_SIZE;
