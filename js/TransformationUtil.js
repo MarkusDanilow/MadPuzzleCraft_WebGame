@@ -5,6 +5,18 @@ function TransformationUtil() {
 /**
  * 
  */
+TransformationUtil.initViewRatioAndDistance = function() {
+    let renderer = application.getRenderer();
+    let rw = renderer.canvasWidth;
+    let rh = renderer.canvasHeight;
+    let idealSizeX = rw / GameMap.VIEW_DISTANCE_X;
+    let idealSizeY = rh / GameMap.VIEW_DISTANCE_Y;
+    Tile.SIZE = Math.floor((idealSizeX + idealSizeY) / 2);
+}
+
+/**
+ * 
+ */
 TransformationUtil.RenderingOffset = {
     x: 0,
     y: 0
