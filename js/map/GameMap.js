@@ -23,6 +23,7 @@ function GameMap() {
 
                 let tile = new Tile(x, y);
                 tile.tileTypeFromNoiseValue(noiseValue);
+
                 colBuffer.push(tile);
             }
             this.tiles.push(colBuffer);
@@ -30,6 +31,9 @@ function GameMap() {
         }
 
         this.processTileTransitions();
+
+        // create new dummy residence
+        this.residence = new Residence(10, 5);
 
     }
 
@@ -92,6 +96,29 @@ function GameMap() {
      */
     this.getTiles = function() {
         return this.tiles;
+    }
+
+    /**   
+     * 
+     */
+    this.render = function(ctx) {
+        if (!ctx) return;
+        var tiles = this.tiles;
+        var noiseMap = this.noiseMap;
+        for (let x = 0; x < tiles.length; x++) {
+            for (let y = 0; y < tiles[x].length; y++) {
+                let type = tiles[x][y].type;
+                let origWorldPos = { x: x * Tile.SIZE, y: y * Tile.SIZE };
+                if (TransformationUtil.isInViewport(origWorldPos)) {
+                    let renderingPos = tiles[x][y].calculateRenderingPosition();
+                    ctx.drawImage(TextureLoader.TileMap,
+                        TextureAtlas.TileSize * TextureAtlas.TileLocations[type].x, TextureAtlas.TileSize * TextureAtlas.TileLocations[type].y,
+                        TextureAtlas.TileSize, TextureAtlas.TileSize,
+                        renderingPos.x, renderingPos.y, Tile.SIZE, Tile.SIZE);
+                }
+            }
+        }
+        this.residence.render(ctx);
     }
 
     /* */

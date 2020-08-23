@@ -3,6 +3,7 @@ function MadApplication() {
     this.renderer = null;
     this.map = null;
     this.input = null;
+    this.ui = null;
 
     let scope = this;
 
@@ -23,6 +24,8 @@ function MadApplication() {
             scope.renderer = new MadRenderer();
             scope.renderer.init();
             scope.input = new MadInput();
+            scope.ui = new UI();
+            scope.ui.listBuildingsInSidebar();
             scope.input.initBasicEvents();
             scope.renderer.createTerrain();
             scope.gameLoop();

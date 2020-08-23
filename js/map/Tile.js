@@ -1,51 +1,55 @@
-function Tile(x, y) {
+class Tile extends BaseEntity {
+    constructor(x, y) {
 
-    // 
-    this.type = TileType.GRASS;
+        // super constructor (entity)
+        super(x, y);
 
-    this.position = { x: x, y: y };
-    this.worldCoordinates = { x: 0, y: 0 };
+        // 
+        this.type = TileType.GRASS;
 
-    /**
-     * 
-     * @param {*} type 
-     */
-    this.changeTileType = function(type = TileType.GRASS) {
-        this.type = type;
+        /**
+         *
+         * @param {*} type
+         */
+        this.changeTileType = function(type = TileType.GRASS) {
+            this.type = type;
+        };
+
+        /**
+         *
+         * @param {*} type
+         */
+        this.hasType = function(type) {
+            return this.type == type;
+        };
+
+        /**
+         *
+         * @param {*} value
+         */
+        this.tileTypeFromNoiseValue = function(value) {
+            if (value < -1)
+                value = -1;
+            if (value > 1)
+                value = 1;
+
+            if (value <= 0)
+                this.type = TileType.WATER;
+            else
+                this.type = TileType.GRASS;
+
+        };
+
+        /**
+         *
+         * @param {*} worldX
+         * @param {*} worldY
+         */
+        this.transformToWorld = function(worldX, worldY) {
+            this.worldPosition = { x: worldX, y: worldY };
+        };
+
     }
-
-    /**
-     * 
-     * @param {*} type 
-     */
-    this.hasType = function(type) {
-        return this.type == type;
-    }
-
-    /**
-     * 
-     * @param {*} value 
-     */
-    this.tileTypeFromNoiseValue = function(value) {
-        if (value < -1) value = -1;
-        if (value > 1) value = 1;
-
-        if (value <= 0)
-            this.type = TileType.WATER;
-        else
-            this.type = TileType.GRASS;
-
-    }
-
-    /**
-     * 
-     * @param {*} worldX 
-     * @param {*} worldY 
-     */
-    this.transformToWorld = function(worldX, worldY) {
-        this.worldCoordinates = { x: worldX, y: worldY };
-    }
-
 }
 
 Tile.SIZE = 64;

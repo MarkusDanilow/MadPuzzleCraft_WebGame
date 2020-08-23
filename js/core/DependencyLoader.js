@@ -27,11 +27,12 @@ function DependencyLoader() {
     this.loadDependencies = function(callback) {
         if (!callback) return;
         let scripts = [];
-        for (let dependencyType in DependencyLoader.DependencyDirectories) {
+        for (let i = 0; i < DependencyLoader.dependencyorder.length; i++) {
+            let dependencyType = DependencyLoader.dependencyorder[i];
             let directory = DependencyLoader.baseDirectory + DependencyLoader.DependencyDirectories[dependencyType];
             let modules = DependencyLoader.DependencyModules[dependencyType];
-            for (let i = 0; i < modules.length; i++) {
-                let module = modules[i];
+            for (let j = 0; j < modules.length; j++) {
+                let module = modules[j];
                 let path = directory + module + ".js";
                 scripts.push(path);
             }
@@ -41,13 +42,17 @@ function DependencyLoader() {
 
 }
 
+DependencyLoader.dependencyorder = ['core', 'lib', 'graphics', 'io', 'ui', 'entities', 'map'];
+
 DependencyLoader.baseDirectory = "js/";
 DependencyLoader.DependencyDirectories = {
     core: "core/",
     graphics: "graphics/",
     io: "io/",
     lib: "lib/",
-    map: "map/"
+    map: "map/",
+    entities: "entities/",
+    ui: 'ui/'
 };
 
 DependencyLoader.DependencyModules = {
@@ -55,5 +60,11 @@ DependencyLoader.DependencyModules = {
     graphics: ["MadRenderer", "TextureLoader"],
     io: ["MadInput"],
     lib: ["perlin"],
-    map: ["GameMap", "Tile", "TileDefinitions"]
+    entities: ["BaseEntity", "Building", "Residence"],
+    map: ["GameMap", "Tile", "TileDefinitions"],
+    ui: ["UI"]
 }
+
+DependencyLoader.DisplayInSidebar = [
+    "Residence"
+]

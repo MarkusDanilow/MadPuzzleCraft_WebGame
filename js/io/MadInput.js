@@ -76,7 +76,7 @@ function MadInput() {
                 sidebar.addClass('collapsed');
                 sidebar.animate({ width: 50 }, 350);
                 icon.addClass('fa-chevron-circle-right').removeClass('fa-chevron-circle-left');
-                sidebarBody.adClass('d-none');
+                sidebarBody.addClass('d-none');
             }
         });
 
