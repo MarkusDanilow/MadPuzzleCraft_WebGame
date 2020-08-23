@@ -1,8 +1,19 @@
-$header-height: 0px;
+$header-height: 55px;
+$sidebar-width: 200px;
+$canvas-z-index: 5;
+$menu-z-index-level-1: 10;
 .header {
     height: $header-height;
 }
 
+.sidebar {
+    position: fixed;
+    width: $sidebar-width;
+    height: 100%;
+    z-index: $menu-z-index-level-1;
+}
+
 .game-rendering-canvas {
     position: fixed;
+    z-index: $canvas-z-index;
 }

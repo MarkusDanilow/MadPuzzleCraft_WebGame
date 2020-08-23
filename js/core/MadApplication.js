@@ -10,8 +10,14 @@ function MadApplication() {
      * 
      */
     this.start = function() {
+        let dependencyLoader = new DependencyLoader();
+        dependencyLoader.loadDependencies(this.loadGameContent);
+    }
 
-        //loading process;
+    /**
+     * 
+     */
+    this.loadGameContent = function() {
         TextureLoader.loadTileMap(function() {
             scope.map = new GameMap();
             scope.renderer = new MadRenderer();

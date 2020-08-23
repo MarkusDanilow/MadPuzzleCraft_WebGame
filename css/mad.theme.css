@@ -1,8 +1,12 @@
 .header {
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.sidebar {
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .game-rendering-canvas {
-  background: #111115;
+  background: #ef8711;
 }
 /*# sourceMappingURL=mad.theme.css.map */

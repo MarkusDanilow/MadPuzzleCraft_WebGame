@@ -14,16 +14,8 @@
     <script src="lib/bootstrap/bootstrap.min.js"></script>
     <script src="lib/htmlgenerator/HtmlGenerator.js"></script>
 
-    <script src="js/TransformationUtil.js"></script>
-    <script src="js/TetxtureLoader.js"></script>
-    <script src="js/MadApplication.js"></script>
-    <script src="js/MadRenderer.js"></script>
-    <script src="js/MadInput.js"></script>
-    <script src="js/TileDefinitions.js"></script>
-    <script src="js/Tile.js"></script>
-    <script src="js/GameMap.js"></script>
-
-    <script src="js/lib/perlin.js"></script>
+    <script src="js/core/MadApplication.js"></script>
+    <script src="js/core/DependencyLoader.js"></script>
 
     <!-- import styles -->
 
@@ -49,8 +41,10 @@
         <div class="row">
             <canvas class="game-rendering-canvas w-100 h-100" id="game-rendering-canvas"></canvas>
         </div>
-
     </div>
+
+    <div class="sidebar left-sidebar" id="left-sidebar"></div>
+
 
     <script>
         var application = new MadApplication();

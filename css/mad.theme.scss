@@ -1,7 +1,12 @@
-$header-color: #222;
-$canvas-clear-color: #111115;
+$header-color: rgba(0, 0, 0, 0.95);
+$canvas-clear-color: #ef8711;
+$sidebar-color: rgba(0, 0, 0, 0.75);
 .header {
     background-color: $header-color;
+}
+
+.sidebar {
+    background: $sidebar-color;
 }
 
 .game-rendering-canvas {

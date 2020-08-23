@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAEA,AAAA,OAAO,CAAC;EACJ,gBAAgB,EAHL,IAAI;CAIlB;;AAED,AAAA,sBAAsB,CAAC;EACnB,UAAU,EANO,OAAO;CAO3B",
+    "mappings": "AAGA,AAAA,OAAO,CAAC;EACJ,gBAAgB,EAJL,mBAAmB;CAKjC;;AAED,AAAA,QAAQ,CAAC;EACL,UAAU,EANE,mBAAmB;CAOlC;;AAED,AAAA,sBAAsB,CAAC;EACnB,UAAU,EAXO,OAAO;CAY3B",
     "sources": [
         "mad.theme.scss"
     ],

@@ -1,8 +1,16 @@
 .header {
-  height: 0px;
+  height: 55px;
+}
+
+.sidebar {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  z-index: 10;
 }
 
 .game-rendering-canvas {
   position: fixed;
+  z-index: 5;
 }
 /*# sourceMappingURL=mad.layout.css.map */
