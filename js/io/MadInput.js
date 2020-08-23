@@ -52,6 +52,21 @@ function MadInput() {
             application.getRenderer().initCanvasSize();
         });
 
+        // sidebar toggling
+        $('.sidebar .sidebar-toggle').click(function(e) {
+            let sidebar = $(this).closest('.sidebar');
+            maxWidth = application.getRenderer().canvasWidth;
+            if (maxWidth < 800) maxWidth = 800;
+            else maxWidth /= 3;
+            if (sidebar.hasClass('collapsed')) {
+                sidebar.removeClass('collapsed');
+                sidebar.animate({ width: maxWidth }, 350);
+            } else {
+                sidebar.addClass('collapsed');
+                sidebar.animate({ width: 50 }, 350);
+            }
+        });
+
     }
 
     this.getHoveredTileCoords = function() {

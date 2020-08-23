@@ -1,3 +1,5 @@
+/* ------------------------- VARIABLES ---------------------- */
+/* ------------------------- CSS DEFINITIONS ---------------------- */
 .header {
   background-color: rgba(0, 0, 0, 0.95);
 }
@@ -7,6 +9,6 @@
 }
 
 .game-rendering-canvas {
-  background: #ef8711;
+  background: #000;
 }
 /*# sourceMappingURL=mad.theme.css.map */

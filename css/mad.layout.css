@@ -1,12 +1,17 @@
+/* ------------------ VARIABLES ---------------------- */
+/* ----------------CSS DEFINITIONS ---------------------------- */
 .header {
   height: 55px;
 }
 
 .sidebar {
   position: fixed;
-  width: 200px;
   height: 100%;
   z-index: 10;
+}
+
+.sidebar.collapsed {
+  width: 50px;
 }
 
 .game-rendering-canvas {

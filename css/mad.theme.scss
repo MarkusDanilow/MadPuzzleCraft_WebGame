@@ -1,6 +1,12 @@
+/* ------------------------- VARIABLES ---------------------- */
+
 $header-color: rgba(0, 0, 0, 0.95);
-$canvas-clear-color: #ef8711;
+//$canvas-clear-color: #ef8711;
+$canvas-clear-color: #000;
 $sidebar-color: rgba(0, 0, 0, 0.75);
+
+/* ------------------------- CSS DEFINITIONS ---------------------- */
+
 .header {
     background-color: $header-color;
 }

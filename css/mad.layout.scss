@@ -1,16 +1,31 @@
+/* ------------------ VARIABLES ---------------------- */
+
+// header
 $header-height: 55px;
-$sidebar-width: 200px;
+// sidebar 
+$sidebar-min-width: 200px;
+$sidebar-max-width: 500px;
+$sidebar-collapsed-width: 50px;
+// z-indices
 $canvas-z-index: 5;
 $menu-z-index-level-1: 10;
+
+/* ----------------CSS DEFINITIONS ---------------------------- */
+
 .header {
     height: $header-height;
 }
 
 .sidebar {
     position: fixed;
-    width: $sidebar-width;
+    //min-width: $sidebar-min-width;
+    //max-width: $sidebar-max-width;
     height: 100%;
     z-index: $menu-z-index-level-1;
+}
+
+.sidebar.collapsed {
+    width: $sidebar-collapsed-width;
 }
 
 .game-rendering-canvas {
