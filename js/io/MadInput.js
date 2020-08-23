@@ -12,9 +12,15 @@ function MadInput() {
 
     this.initBasicEvents = function() {
 
-        application.getRenderer().canvasReference.on('contextmenu', function(e) {
-            return false;
-        });
+        if (MadApplication.developerMode) {
+            application.getRenderer().canvasReference.on('contextmenu', function(e) {
+                return false;
+            });
+        } else {
+            $('body').on('contextmenu', function(e) {
+                return false;
+            });
+        }
 
         application.getRenderer().canvasReference.mousemove(function(e) {
             // include draggin mode in here as well!
@@ -55,15 +61,22 @@ function MadInput() {
         // sidebar toggling
         $('.sidebar .sidebar-toggle').click(function(e) {
             let sidebar = $(this).closest('.sidebar');
+            let sidebarBody = sidebar.find('.sidebar-body');
+            console.log(sidebarBody);
+            let icon = $('.sidebar-toggle i');
             maxWidth = application.getRenderer().canvasWidth;
             if (maxWidth < 800) maxWidth = 800;
             else maxWidth /= 3;
             if (sidebar.hasClass('collapsed')) {
                 sidebar.removeClass('collapsed');
                 sidebar.animate({ width: maxWidth }, 350);
+                icon.removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left');
+                sidebarBody.removeClass('d-none');
             } else {
                 sidebar.addClass('collapsed');
                 sidebar.animate({ width: 50 }, 350);
+                icon.addClass('fa-chevron-circle-right').removeClass('fa-chevron-circle-left');
+                sidebarBody.adClass('d-none');
             }
         });
 

@@ -66,3 +66,5 @@ function MadApplication() {
 }
 
 MadApplication.TargetFPS = 30;
+
+MadApplication.developerMode = true;
