@@ -32,9 +32,6 @@ function GameMap() {
 
         this.processTileTransitions();
 
-        // create new dummy residence
-        this.residence = new Residence(10, 5);
-
     }
 
     /**
@@ -118,7 +115,6 @@ function GameMap() {
                 }
             }
         }
-        this.residence.render(ctx);
     }
 
     /* */
