@@ -16,6 +16,14 @@ function Tile(x, y) {
 
     /**
      * 
+     * @param {*} type 
+     */
+    this.hasType = function(type) {
+        return this.type == type;
+    }
+
+    /**
+     * 
      * @param {*} value 
      */
     this.tileTypeFromNoiseValue = function(value) {
