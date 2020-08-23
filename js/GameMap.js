@@ -106,5 +106,5 @@ GameMap.HEIGHT = 128;
 // we do not want users with a wider screen to see more of the map than users with a small screen
 // so we define a fixed view distance on both axis
 // => ration between x and y is 16:9
-GameMap.VIEW_DISTANCE_X = 100;
+GameMap.VIEW_DISTANCE_X = 32;
 GameMap.VIEW_DISTANCE_Y = GameMap.VIEW_DISTANCE_X / 16 * 9;
