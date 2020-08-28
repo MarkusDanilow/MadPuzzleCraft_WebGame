@@ -1,8 +1,22 @@
+/* ------------------------- VARIABLES ---------------------- */
+/* ------------------------- CSS DEFINITIONS ---------------------- */
 .header {
-  background-color: #222;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.sidebar {
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .game-rendering-canvas {
-  background: #111115;
+  background: #000;
+}
+
+.sidebar-body {
+  background: transparent;
+}
+
+.ui-placement-element {
+  cursor: pointer;
 }
 /*# sourceMappingURL=mad.theme.css.map */

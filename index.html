@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAD Puzzle Craft</title>
+    <title>MAD Craft</title>
 
     <!-- import scripts -->
 
@@ -14,16 +14,8 @@
     <script src="lib/bootstrap/bootstrap.min.js"></script>
     <script src="lib/htmlgenerator/HtmlGenerator.js"></script>
 
-    <script src="js/TransformationUtil.js"></script>
-    <script src="js/TetxtureLoader.js"></script>
-    <script src="js/MadApplication.js"></script>
-    <script src="js/MadRenderer.js"></script>
-    <script src="js/MadInput.js"></script>
-    <script src="js/TileDefinitions.js"></script>
-    <script src="js/Tile.js"></script>
-    <script src="js/GameMap.js"></script>
-
-    <script src="js/lib/perlin.js"></script>
+    <script src="js/core/MadApplication.js"></script>
+    <script src="js/core/DependencyLoader.js"></script>
 
     <!-- import styles -->
 
@@ -49,8 +41,27 @@
         <div class="row">
             <canvas class="game-rendering-canvas w-100 h-100" id="game-rendering-canvas"></canvas>
         </div>
-
     </div>
+
+    <div class="sidebar left-sidebar collapsed" id="left-sidebar">
+        <div class="row">
+            <div class="col-12">
+                <button class="btn btn-outline-dark border-0 btn-block sidebar-toggle">
+                    <i class="fas fa-chevron-circle-right fa-2x"></i>
+                </button>
+            </div>
+            <div class="col-12">
+                <div class="sidebar-body w-100 mt-3" id="left-sidebar-body">
+                    <div class="container">
+                        <div class="row item-row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         var application = new MadApplication();

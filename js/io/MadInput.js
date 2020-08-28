@@ -8,15 +8,28 @@ function MadInput() {
     this.lastDragingPosition = { x: 0, y: 0 };
     this.newDraggingPosition = { x: 0, y: 0 };
 
+    this.tempPlacementEntity = null;
+
     let scope = this;
 
+    /**
+     * 
+     */
     this.initBasicEvents = function() {
 
-        application.getRenderer().canvasReference.on('contextmenu', function(e) {
-            return false;
-        });
+        let canvas = application.getRenderer().canvasReference;
 
-        application.getRenderer().canvasReference.mousemove(function(e) {
+        if (MadApplication.developerMode) {
+            canvas.on('contextmenu', function(e) {
+                return false;
+            });
+        } else {
+            $('body').on('contextmenu', function(e) {
+                return false;
+            });
+        }
+
+        canvas.mousemove(function(e) {
             // include draggin mode in here as well!
             let mousePos = { x: e.pageX, y: e.pageY };
             if (scope.draggingEnabled) {
@@ -30,22 +43,30 @@ function MadInput() {
             }
             var tilePosition = TransformationUtil.toWorldCoordinates(mousePos.x, mousePos.y);
             scope.hoveredTileCoords = tilePosition;
+            if (scope.isPlacementEnabled()) {
+                scope.tempPlacementEntity.setTilePosition(tilePosition.x, tilePosition.y);
+            }
         });
 
-        application.getRenderer().canvasReference.mousedown(function(e) {
+        canvas.mousedown(function(e) {
             if (e.which == scope.dragginMouseButton) {
                 scope.draggingEnabled = true;
                 scope.newDraggingPosition = { x: e.pageX, y: e.pageY };
             }
         });
 
-
-        application.getRenderer().canvasReference.mouseup(function(e) {
+        canvas.mouseup(function(e) {
             scope.draggingEnabled = false;
         });
 
         $(document).mouseout(function(e) {
             scope.hoveredTileCoords = { x: -1, y: -1 };
+        });
+
+        canvas.click(function(e) {
+            if (scope.isPlacementEnabled()) {
+                application.addEntityFromTempPlacement(scope.tempPlacementEntity);
+            }
         });
 
         $(window).resize(function() {
@@ -54,14 +75,46 @@ function MadInput() {
 
     }
 
+    /**
+     * 
+     */
     this.getHoveredTileCoords = function() {
         return this.hoveredTileCoords;
     }
 
+    /**
+     * 
+     */
     this.hoveredTileCoordsInRange = function() {
         let coords = this.getHoveredTileCoords();
         return coords.x > -1 && coords.x < GameMap.WIDTH &&
             coords.y > -1 && coords.y < GameMap.HEIGHT;
+    }
+
+    /**
+     * 
+     * @param {*} entity 
+     */
+    this.definePlacementEntity = function(entity) {
+        scope.tempPlacementEntity = entity;
+    }
+
+    /**
+     * 
+     * @param {*} ctx 
+     */
+    this.renderPlacementEntity = function(ctx) {
+        if (scope.isPlacementEnabled()) {
+            scope.tempPlacementEntity.render(ctx);
+        }
+    }
+
+    /**
+     * 
+     */
+    this.isPlacementEnabled = function() {
+        if (this.tempPlacementEntity) return true;
+        return false;
     }
 
 }
