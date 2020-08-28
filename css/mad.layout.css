@@ -14,8 +14,16 @@
   width: 50px;
 }
 
+.sidebar-body {
+  display: none;
+}
+
 .game-rendering-canvas {
   position: fixed;
   z-index: 5;
+}
+
+.sidebar .item-row {
+  height: 100px;
 }
 /*# sourceMappingURL=mad.layout.css.map */

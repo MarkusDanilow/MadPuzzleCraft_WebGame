@@ -28,7 +28,17 @@ $menu-z-index-level-1: 10;
     width: $sidebar-collapsed-width;
 }
 
+.sidebar-body {
+    display: none;
+}
+
 .game-rendering-canvas {
     position: fixed;
     z-index: $canvas-z-index;
 }
+
+.sidebar .item-row {
+    height: 100px;
+}
+
+.ui-placement-element {}

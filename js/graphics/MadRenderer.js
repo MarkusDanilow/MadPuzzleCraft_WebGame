@@ -35,13 +35,6 @@ function MadRenderer() {
     /**
      * 
      */
-    this.createTerrain = function() {
-
-    }
-
-    /**
-     * 
-     */
     this.prepareRenderCycle = function(callback) {
         if (!callback) return;
         requestAnimationFrame(callback);
@@ -71,6 +64,13 @@ function MadRenderer() {
             scope.renderingContext.rect(renderingPos.x, renderingPos.y, Tile.SIZE, Tile.SIZE);
             scope.renderingContext.stroke();
         }
+
+        // render entities taht already exist in the world
+        application.getEntityManager().renderAll(scope.renderingContext);
+
+        // render placement preview
+        application.getInput().renderPlacementEntity(scope.renderingContext);
+
     }
 
 }

@@ -4,8 +4,26 @@ class BaseEntity {
         this.worldPosition = { x: 0, y: 0 };
     }
 
-    reCalculateSize() {
+    /**
+     * This sets absolute pixel values for the world position
+     * @param {*} worldX
+     * @param {*} worldY
+     */
+    transformToWorld(worldX, worldY) {
+        this.worldPosition = { x: worldX, y: worldY };
+    };
 
+    /**
+     * This sets the tile position as an integer, describing the tile index (x,y) the entity is located on 
+     * @param {*} tileX 
+     * @param {*} tileY 
+     */
+    setTilePosition(tileX, tileY) {
+        this.worldCoordinates = { x: tileX, y: tileY };
+    }
+
+    reCalculateSize() {
+        this.size = Tile.SIZE;
     }
 
     /**

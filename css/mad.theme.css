@@ -15,4 +15,8 @@
 .sidebar-body {
   background: transparent;
 }
+
+.ui-placement-element {
+  cursor: pointer;
+}
 /*# sourceMappingURL=mad.theme.css.map */

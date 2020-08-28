@@ -2,8 +2,11 @@ function MadApplication() {
 
     this.renderer = null;
     this.map = null;
-    this.input = null;
+    this.canvasInput = null;
+    this.uiInput = null;
     this.ui = null;
+
+    this.entityManager = null;
 
     let scope = this;
 
@@ -20,14 +23,21 @@ function MadApplication() {
      */
     this.loadGameContent = function() {
         TextureLoader.loadTileMap(function() {
-            scope.map = new GameMap();
             scope.renderer = new MadRenderer();
             scope.renderer.init();
-            scope.input = new MadInput();
+
+            scope.canvasInput = new MadInput();
+            scope.canvasInput.initBasicEvents();
+
+            scope.uiInput = new MadUIInput();
+
             scope.ui = new UI();
             scope.ui.listBuildingsInSidebar();
-            scope.input.initBasicEvents();
-            scope.renderer.createTerrain();
+
+            scope.map = new GameMap();
+
+            scope.entityManager = new EntityManager();
+
             scope.gameLoop();
         });
     }
@@ -50,7 +60,40 @@ function MadApplication() {
      * 
      */
     this.getInput = function() {
-        return scope.input;
+        return scope.canvasInput;
+    }
+
+    /**
+     * 
+     */
+    this.getUIInput = function() {
+        return scope.uiInput;
+    }
+
+    /**
+     * 
+     */
+    this.getUI = function() {
+        return scope.ui;
+    }
+
+    /**
+     * 
+     */
+    this.getEntityManager = function() {
+        return scope.entityManager;
+    }
+
+    /**
+     * 
+     * @param {*} tempPlacementEntity 
+     */
+    this.addEntityFromTempPlacement = function(tempPlacementEntity) {
+        if (!tempPlacementEntity) return;
+        let realEntity = eval(`new ${tempPlacementEntity.name}()`);
+        realEntity.worldCoordinates = tempPlacementEntity.worldCoordinates;
+        realEntity.worldPosition = tempPlacementEntity.worldPosition;
+        scope.entityManager.addEntity(realEntity);
     }
 
     /**

@@ -5,14 +5,6 @@ class Building extends BaseEntity {
         this.name = name;
     }
 
-    place(x, y) {
-        this.coordinates = { x: x, y: y };
-    }
-
-    reCalculateSize() {
-        this.size = Tile.SIZE;
-    }
-
     render(ctx) {
         if (!ctx) return;
         this.reCalculateSize();

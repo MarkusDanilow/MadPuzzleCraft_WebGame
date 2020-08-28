@@ -37,7 +37,11 @@ function DependencyLoader() {
                 scripts.push(path);
             }
         }
-        $.getMultiScripts(scripts).done(callback);
+        $.getMultiScripts(scripts).done(() => {
+            setTimeout(() => {
+                callback();
+            }, 500);
+        });
     }
 
 }
@@ -58,9 +62,9 @@ DependencyLoader.DependencyDirectories = {
 DependencyLoader.DependencyModules = {
     core: ["TransformationUtil"],
     graphics: ["MadRenderer", "TextureLoader"],
-    io: ["MadInput"],
+    io: ["MadInput", "MadUIInput"],
     lib: ["perlin"],
-    entities: ["BaseEntity", "Building", "Residence"],
+    entities: ["EntityManager", "BaseEntity", "Building", "Residence"],
     map: ["GameMap", "Tile", "TileDefinitions"],
     ui: ["UI"]
 }

@@ -40,15 +40,6 @@ class Tile extends BaseEntity {
 
         };
 
-        /**
-         *
-         * @param {*} worldX
-         * @param {*} worldY
-         */
-        this.transformToWorld = function(worldX, worldY) {
-            this.worldPosition = { x: worldX, y: worldY };
-        };
-
     }
 }
 

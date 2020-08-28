@@ -8,12 +8,19 @@ function MadInput() {
     this.lastDragingPosition = { x: 0, y: 0 };
     this.newDraggingPosition = { x: 0, y: 0 };
 
+    this.tempPlacementEntity = null;
+
     let scope = this;
 
+    /**
+     * 
+     */
     this.initBasicEvents = function() {
 
+        let canvas = application.getRenderer().canvasReference;
+
         if (MadApplication.developerMode) {
-            application.getRenderer().canvasReference.on('contextmenu', function(e) {
+            canvas.on('contextmenu', function(e) {
                 return false;
             });
         } else {
@@ -22,7 +29,7 @@ function MadInput() {
             });
         }
 
-        application.getRenderer().canvasReference.mousemove(function(e) {
+        canvas.mousemove(function(e) {
             // include draggin mode in here as well!
             let mousePos = { x: e.pageX, y: e.pageY };
             if (scope.draggingEnabled) {
@@ -36,17 +43,19 @@ function MadInput() {
             }
             var tilePosition = TransformationUtil.toWorldCoordinates(mousePos.x, mousePos.y);
             scope.hoveredTileCoords = tilePosition;
+            if (scope.isPlacementEnabled()) {
+                scope.tempPlacementEntity.setTilePosition(tilePosition.x, tilePosition.y);
+            }
         });
 
-        application.getRenderer().canvasReference.mousedown(function(e) {
+        canvas.mousedown(function(e) {
             if (e.which == scope.dragginMouseButton) {
                 scope.draggingEnabled = true;
                 scope.newDraggingPosition = { x: e.pageX, y: e.pageY };
             }
         });
 
-
-        application.getRenderer().canvasReference.mouseup(function(e) {
+        canvas.mouseup(function(e) {
             scope.draggingEnabled = false;
         });
 
@@ -54,42 +63,58 @@ function MadInput() {
             scope.hoveredTileCoords = { x: -1, y: -1 };
         });
 
+        canvas.click(function(e) {
+            if (scope.isPlacementEnabled()) {
+                application.addEntityFromTempPlacement(scope.tempPlacementEntity);
+            }
+        });
+
         $(window).resize(function() {
             application.getRenderer().initCanvasSize();
         });
 
-        // sidebar toggling
-        $('.sidebar .sidebar-toggle').click(function(e) {
-            let sidebar = $(this).closest('.sidebar');
-            let sidebarBody = sidebar.find('.sidebar-body');
-            console.log(sidebarBody);
-            let icon = $('.sidebar-toggle i');
-            maxWidth = application.getRenderer().canvasWidth;
-            if (maxWidth < 800) maxWidth = 800;
-            else maxWidth /= 3;
-            if (sidebar.hasClass('collapsed')) {
-                sidebar.removeClass('collapsed');
-                sidebar.animate({ width: maxWidth }, 350);
-                icon.removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left');
-                sidebarBody.removeClass('d-none');
-            } else {
-                sidebar.addClass('collapsed');
-                sidebar.animate({ width: 50 }, 350);
-                icon.addClass('fa-chevron-circle-right').removeClass('fa-chevron-circle-left');
-                sidebarBody.addClass('d-none');
-            }
-        });
-
     }
 
+    /**
+     * 
+     */
     this.getHoveredTileCoords = function() {
         return this.hoveredTileCoords;
     }
 
+    /**
+     * 
+     */
     this.hoveredTileCoordsInRange = function() {
         let coords = this.getHoveredTileCoords();
         return coords.x > -1 && coords.x < GameMap.WIDTH &&
             coords.y > -1 && coords.y < GameMap.HEIGHT;
+    }
+
+    /**
+     * 
+     * @param {*} entity 
+     */
+    this.definePlacementEntity = function(entity) {
+        scope.tempPlacementEntity = entity;
+    }
+
+    /**
+     * 
+     * @param {*} ctx 
+     */
+    this.renderPlacementEntity = function(ctx) {
+        if (scope.isPlacementEnabled()) {
+            scope.tempPlacementEntity.render(ctx);
+        }
+    }
+
+    /**
+     * 
+     */
+    this.isPlacementEnabled = function() {
+        if (this.tempPlacementEntity) return true;
+        return false;
     }
 
 }
