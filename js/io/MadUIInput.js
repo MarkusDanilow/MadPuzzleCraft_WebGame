@@ -17,14 +17,11 @@ function MadUIInput() {
 
         // clicking a UI button to place something in the world
         $('body').on('click', '.ui-placement-element', function(e) {
-            let placementType = $(this).attr('placement-type');
-            switch (placementType) {
-                case 'building':
-                    // instantiate building type and add to ui module as temp. entity
-                    let buildingTypeString = $(this).attr('building-type');
-                    let buildingReference = eval(`new ${buildingTypeString}()`);
-                    application.getInput().definePlacementEntity(buildingReference);
-                    break;
+            let placement = application.getEntityPlacementHandler();
+            if (placement.isSelectedPlacement($(this))) {
+                placement.resetUiPlacementElement();
+            } else {
+                placement.handlePlacement($(this));
             }
         });
 

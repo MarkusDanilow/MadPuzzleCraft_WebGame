@@ -40,6 +40,9 @@ function MadRenderer() {
         requestAnimationFrame(callback);
     }
 
+    /**
+     * 
+     */
     this.updateControls = function() {
 
     }

@@ -46,7 +46,7 @@ function DependencyLoader() {
 
 }
 
-DependencyLoader.dependencyorder = ['core', 'lib', 'graphics', 'io', 'ui', 'entities', 'map'];
+DependencyLoader.dependencyorder = ['core', 'lib', 'graphics', 'io', 'ui', 'entities', 'buildingEntities', 'map'];
 
 DependencyLoader.baseDirectory = "js/";
 DependencyLoader.DependencyDirectories = {
@@ -56,19 +56,21 @@ DependencyLoader.DependencyDirectories = {
     lib: "lib/",
     map: "map/",
     entities: "entities/",
+    buildingEntities: "entities/buildings/",
     ui: 'ui/'
 };
 
 DependencyLoader.DependencyModules = {
     core: ["TransformationUtil"],
     graphics: ["MadRenderer", "TextureLoader"],
-    io: ["MadInput", "MadUIInput"],
+    io: ["EntityPlacement", "MadInput", "MadUIInput"],
     lib: ["perlin"],
-    entities: ["EntityManager", "BaseEntity", "Building", "Residence"],
+    entities: ["EntityManager", "BaseEntity"],
+    buildingEntities: ["Building", "Residence", "BlackSmith", "CommunityCenter"],
     map: ["GameMap", "Tile", "TileDefinitions"],
     ui: ["UI"]
 }
 
 DependencyLoader.DisplayInSidebar = [
-    "Residence"
+    "Residence", "BlackSmith", "CommunityCenter"
 ]

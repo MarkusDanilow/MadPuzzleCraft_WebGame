@@ -7,6 +7,7 @@ function MadApplication() {
     this.ui = null;
 
     this.entityManager = null;
+    this.entityPlacementHandler = null;
 
     let scope = this;
 
@@ -37,6 +38,7 @@ function MadApplication() {
             scope.map = new GameMap();
 
             scope.entityManager = new EntityManager();
+            scope.entityPlacementHandler = new EntityPlacement();
 
             scope.gameLoop();
         });
@@ -86,11 +88,19 @@ function MadApplication() {
 
     /**
      * 
+     */
+    this.getEntityPlacementHandler = function() {
+        return scope.entityPlacementHandler;
+    }
+
+    /**
+     * 
      * @param {*} tempPlacementEntity 
      */
     this.addEntityFromTempPlacement = function(tempPlacementEntity) {
         if (!tempPlacementEntity) return;
-        let realEntity = eval(`new ${tempPlacementEntity.name}()`);
+        let className = tempPlacementEntity.name.replace(/ /g, '');
+        let realEntity = eval(`new ${className}()`);
         realEntity.worldCoordinates = tempPlacementEntity.worldCoordinates;
         realEntity.worldPosition = tempPlacementEntity.worldPosition;
         scope.entityManager.addEntity(realEntity);

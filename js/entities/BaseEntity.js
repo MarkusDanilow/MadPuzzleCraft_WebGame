@@ -2,6 +2,7 @@ class BaseEntity {
     constructor(x, y) {
         this.worldCoordinates = { x: x, y: y };
         this.worldPosition = { x: 0, y: 0 };
+        this.fillColor = 'red';
     }
 
     /**
