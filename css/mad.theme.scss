@@ -5,6 +5,7 @@ $header-color: rgba(0, 0, 0, 0.95);
 $canvas-clear-color: #000;
 $sidebar-color: rgba(0, 0, 0, 0.75);
 $highlightColor: #fa8810;
+$darkColor: #252222;
 
 /* ------------------------- CSS DEFINITIONS ---------------------- */
 
@@ -30,4 +31,8 @@ $highlightColor: #fa8810;
     &.active {
         border: 3px solid $highlightColor;
     }
+}
+
+.mad-bg-dark {
+    background: $darkColor;
 }

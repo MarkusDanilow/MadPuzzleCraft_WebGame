@@ -31,10 +31,19 @@
 
 <body>
 
+    <div class="w-100 h-100 fixed-top mad-bg-dark" id="loading-scren">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-12 text-center text-white">
+                <i class="fas fa-circle-notch fa-spin fa-3x"></i>
+                <p class="pt-3">Loading...</p>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 header">
-                <span class="logo-text">
+                <span class="logo-text fa-2x text-white mt-2">
                     MAD Craft
                 </span>
             </div>
@@ -67,7 +76,9 @@
 
     <script>
         var application = new MadApplication();
-        application.start();
+        application.start(() => {
+            application.switchToBoard();
+        });
     </script>
 
 </body>

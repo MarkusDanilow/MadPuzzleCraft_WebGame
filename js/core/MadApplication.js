@@ -1,6 +1,7 @@
 function MadApplication() {
 
-    this.renderer = null;
+    this.mapRenderer = null;
+    this.boardRenderer = null;
     this.map = null;
     this.canvasInput = null;
     this.uiInput = null;
@@ -9,23 +10,32 @@ function MadApplication() {
     this.entityManager = null;
     this.entityPlacementHandler = null;
 
+    this.renderMap = true;
+
     let scope = this;
 
     /**
      * 
      */
-    this.start = function() {
+    this.start = function(doneCallback) {
         let dependencyLoader = new DependencyLoader();
-        dependencyLoader.loadDependencies(this.loadGameContent);
+        dependencyLoader.loadDependencies(() => {
+            scope.loadGameContent(() => {
+                if (doneCallback) doneCallback();
+                scope.ui.hideLoadingScreen();
+            });
+        });
     }
 
     /**
      * 
      */
-    this.loadGameContent = function() {
+    this.loadGameContent = function(doneCallback) {
         TextureLoader.loadTileMap(function() {
-            scope.renderer = new MadRenderer();
-            scope.renderer.init();
+            scope.mapRenderer = new MadMapRenderer();
+            scope.mapRenderer.init();
+            scope.boardRenderer = new MadBoardRenderer();
+            scope.boardRenderer.init();
 
             scope.canvasInput = new MadInput();
             scope.canvasInput.initBasicEvents();
@@ -41,7 +51,25 @@ function MadApplication() {
             scope.entityPlacementHandler = new EntityPlacement();
 
             scope.gameLoop();
+
+            if (doneCallback) doneCallback();
         });
+    }
+
+    /**
+     * 
+     */
+    this.switchToMap = function() {
+        scope.ui.switchToMap();
+        scope.renderMap = true;
+    }
+
+    /**
+     * 
+     */
+    this.switchToBoard = function() {
+        scope.ui.switchToBoard();
+        scope.renderMap = false;
     }
 
     /**
@@ -54,8 +82,22 @@ function MadApplication() {
     /**
      * 
      */
+    this.getMapRenderer = function() {
+        return scope.mapRenderer;
+    }
+
+    /**
+     * 
+     */
+    this.getBoardRenderer = function() {
+        return scope.boardRenderer;
+    }
+
+    /**
+     * 
+     */
     this.getRenderer = function() {
-        return scope.renderer;
+        return scope.renderMap ? scope.getMapRenderer() : scope.getBoardRenderer();
     }
 
     /**
@@ -111,10 +153,11 @@ function MadApplication() {
      */
     this.gameLoop = function() {
         setTimeout(function() {
-            scope.renderer.prepareRenderCycle(scope.gameLoop);
-            scope.renderer.updateControls();
+            scope.mapRenderer.prepareRenderCycle(scope.gameLoop);
+            scope.mapRenderer.updateControls();
             // update game logic ...
-            scope.renderer.render();
+            if (scope.renderMap) scope.mapRenderer.render();
+            else scope.boardRenderer.render();
         }, 1000 / MadApplication.TargetFPS);
     }
 
