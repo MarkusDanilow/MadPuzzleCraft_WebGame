@@ -18,5 +18,14 @@
 
 .ui-placement-element {
   cursor: pointer;
+  border: 3px solid transparent;
+}
+
+.ui-placement-element.active {
+  border: 3px solid #fa8810;
+}
+
+.mad-bg-dark {
+  background: #252222;
 }
 /*# sourceMappingURL=mad.theme.css.map */

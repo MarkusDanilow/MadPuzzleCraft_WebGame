@@ -3,6 +3,30 @@ class UI {
 
     }
 
+    /**
+     * 
+     */
+    switchToMap() {
+        $('#left-sidebar').show();
+    }
+
+    /**
+     * 
+     */
+    switchToBoard() {
+        $('#left-sidebar').hide();
+    }
+
+    /**
+     * 
+     */
+    hideLoadingScreen() {
+        $('#loading-scren').fadeOut(UI.FADING_TIME);
+    }
+
+    /**
+     * 
+     */
     listBuildingsInSidebar() {
         let sidebarBodyRow = $('#left-sidebar-body .row');
         for (let i = 0; i < DependencyLoader.DisplayInSidebar.length; i++) {
@@ -16,6 +40,10 @@ class UI {
         }
     }
 
+    /**
+     * 
+     * @param {*} sidebarToggler 
+     */
     showSidebarContent(sidebarToggler) {
         let sidebar = sidebarToggler.closest('.sidebar');
         let sidebarBody = sidebar.find('.sidebar-body');
@@ -26,23 +54,28 @@ class UI {
         else maxWidth /= 3;
 
         sidebar.removeClass('collapsed');
-        sidebar.animate({ width: maxWidth }, 350, () => {
-            sidebarBody.fadeIn(350);
+        sidebar.animate({ width: maxWidth }, UI.FADING_TIME, () => {
+            sidebarBody.fadeIn(UI.FADING_TIME);
         });
         icon.removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-left');
 
     }
 
+    /**
+     * 
+     * @param {*} sidebarToggler 
+     */
     hideSidebarContent(sidebarToggler) {
         let sidebar = sidebarToggler.closest('.sidebar');
         let sidebarBody = sidebar.find('.sidebar-body');
         let icon = sidebarToggler.find('i');
         sidebar.addClass('collapsed');
-        sidebarBody.fadeOut(350, () => {
-            sidebar.animate({ width: 50 }, 350);
+        sidebarBody.fadeOut(UI.FADING_TIME, () => {
+            sidebar.animate({ width: 50 }, UI.FADING_TIME);
         });
-
         icon.addClass('fa-chevron-circle-right').removeClass('fa-chevron-circle-left');
     }
 
 }
+
+UI.FADING_TIME = 200;

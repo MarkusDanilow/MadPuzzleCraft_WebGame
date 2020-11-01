@@ -9,7 +9,7 @@ class Building extends BaseEntity {
         if (!ctx) return;
         this.reCalculateSize();
         let renderingPos = this.calculateRenderingPosition();
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = this.fillColor;
         ctx.fillRect(renderingPos.x, renderingPos.y, this.size, this.size);
     }
 

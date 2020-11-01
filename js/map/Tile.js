@@ -28,11 +28,7 @@ class Tile extends BaseEntity {
          * @param {*} value
          */
         this.tileTypeFromNoiseValue = function(value) {
-            if (value < -1)
-                value = -1;
-            if (value > 1)
-                value = 1;
-
+            value = value.clamp(-1, 1);
             if (value <= 0)
                 this.type = TileType.WATER;
             else

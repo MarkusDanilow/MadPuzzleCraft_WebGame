@@ -1,25 +1,20 @@
 /**
  * 
- * Utility method to load multiple scripts dynamically and asynchronous. 
- * Found here: https://stackoverflow.com/questions/11803215/how-to-include-multiple-js-files-using-jquery-getscript-method
- * 
- * @param {*} arr 
- * @param {*} path 
- */
-$.getMultiScripts = function(arr, path) {
-    var _arr = $.map(arr, function(scr) {
-        return $.getScript((path || "") + scr);
-    });
-    _arr.push($.Deferred(function(deferred) {
-        $(deferred.resolve);
-    }));
-    return $.when.apply($, _arr);
-}
-
-/**
- * 
  */
 function DependencyLoader() {
+
+    /**
+     * 
+     * @param {*} arr 
+     * @param {*} callback 
+     */
+    this.loadMultipleScripts = function(arr, callback) {
+        HtmlGenerator.generateComment($('head'), "the following scripts have been added automatically by the dependency loader", true);
+        for (let k in arr) {
+            HtmlGenerator.generateScript($('head'), '', '', true, { src: arr[k] + '?v=' + (Math.random().toString().substr(2)) });
+        }
+        if (callback) callback();
+    }
 
     /**
      * 
@@ -27,9 +22,9 @@ function DependencyLoader() {
     this.loadDependencies = function(callback) {
         if (!callback) return;
         let scripts = [];
-        for (let i = 0; i < DependencyLoader.dependencyorder.length; i++) {
-            let dependencyType = DependencyLoader.dependencyorder[i];
-            let directory = DependencyLoader.baseDirectory + DependencyLoader.DependencyDirectories[dependencyType];
+        for (let i = 0; i < DependencyLoader.DependencyOrder.length; i++) {
+            let dependencyType = DependencyLoader.DependencyOrder[i];
+            let directory = DependencyLoader.BaseDirectory + DependencyLoader.DependencyDirectories[dependencyType];
             let modules = DependencyLoader.DependencyModules[dependencyType];
             for (let j = 0; j < modules.length; j++) {
                 let module = modules[j];
@@ -37,18 +32,18 @@ function DependencyLoader() {
                 scripts.push(path);
             }
         }
-        $.getMultiScripts(scripts).done(() => {
+        this.loadMultipleScripts(scripts, () => {
             setTimeout(() => {
                 callback();
-            }, 500);
+            }, 1000);
         });
     }
 
 }
 
-DependencyLoader.dependencyorder = ['core', 'lib', 'graphics', 'io', 'ui', 'entities', 'map'];
+DependencyLoader.DependencyOrder = ['core', 'lib', 'graphics', 'io', 'ui', 'entities', 'buildingEntities', 'map'];
 
-DependencyLoader.baseDirectory = "js/";
+DependencyLoader.BaseDirectory = "js/";
 DependencyLoader.DependencyDirectories = {
     core: "core/",
     graphics: "graphics/",
@@ -56,19 +51,21 @@ DependencyLoader.DependencyDirectories = {
     lib: "lib/",
     map: "map/",
     entities: "entities/",
+    buildingEntities: "entities/buildings/",
     ui: 'ui/'
 };
 
 DependencyLoader.DependencyModules = {
     core: ["TransformationUtil"],
-    graphics: ["MadRenderer", "TextureLoader"],
-    io: ["MadInput", "MadUIInput"],
-    lib: ["perlin"],
-    entities: ["EntityManager", "BaseEntity", "Building", "Residence"],
+    graphics: ["MadBaseRenderer", "MadMapRenderer", "MadBoardRenderer", "TextureLoader"],
+    io: ["EntityPlacement", "MadInput", "MadUIInput"],
+    lib: ["perlin", "MadUtility"],
+    entities: ["EntityManager", "BaseEntity"],
+    buildingEntities: ["Building", "Residence", "BlackSmith", "CommunityCenter"],
     map: ["GameMap", "Tile", "TileDefinitions"],
     ui: ["UI"]
 }
 
 DependencyLoader.DisplayInSidebar = [
-    "Residence"
+    "Residence", "BlackSmith", "CommunityCenter"
 ]

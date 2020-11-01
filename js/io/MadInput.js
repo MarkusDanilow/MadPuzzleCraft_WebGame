@@ -73,6 +73,15 @@ function MadInput() {
             application.getRenderer().initCanvasSize();
         });
 
+        // key up events
+        $(window).keyup(function(e) {
+            if (e.which == 27) {
+                if (scope.isPlacementEnabled()) {
+                    application.getEntityPlacementHandler().resetUiPlacementElement();
+                }
+            }
+        });
+
     }
 
     /**
